@@ -1,6 +1,6 @@
 # CMPS 2200  Recitation 04
 
-**Name (Team Member 1):**_________________________  
+**Name (Team Member 1):**__Zoe Murphy___  
 **Name (Team Member 2):**_________________________
 
 
@@ -36,8 +36,10 @@ To use this function to count words, you'll need to implement your own `map_f` a
 
 4. Assume that a word `w` appears `n` times. What is the **work** and **span** of `word_count_reduce` for this word, assuming a parallel implementation of the `reduce` function?
 
-**Enter answer here**
+**word_count_reduce uses the reduce function which is like a divide and conquer algorithm. This has the equation of what we've been working with, W(n) = aW(n/b) + f(n). The equation is W(n) = 2W(n/2) +O(1), as the reduce function is called twice (value for a), and each value is halved (value for b). This is just like the problem from lab 2. I had W(n) = 2W(n/2) +O(1) as leaf dominated 2^i with a depth logb(n), which becomes 2^(log2(n)), which is n, so the work is O(n). For span, the work done is constant, so the span should just be the depth of the tree which would be the longest sequential path: O(log n)**
 
+**Work: O(n)**
+**Span: O(log n)**
 
 5. Why are we going through all this trouble? Couldn't I just use this function to count words?
 
@@ -51,8 +53,8 @@ for doc in docs:
 ```
 
 What is the problem that prevents us from easily parallelizing this solution?
-
-**Enter answer here**
+ 
+**I think the issue with paralellizing this solution is with the line "counts[term] = counts.get(term, 0) + 1". Since multiple processes could be accessing that line of code at the same time in a parallel setup, there could be race conditions. As we saw in Systems & Networking, race conditions can cause the function to just stop and crash or not run correctly. Also, this has neseted for loops which aren't very good for run times in general.**
 
 
 ## Part 2: Sentiment analysis
